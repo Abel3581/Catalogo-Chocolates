@@ -1,0 +1,85 @@
+package com.chocolate.amaro.service;
+
+import com.chocolate.amaro.Exception.UserAlreadyExistException;
+import com.chocolate.amaro.common.DtoUtil;
+import com.chocolate.amaro.common.EntityUtil;
+import com.chocolate.amaro.common.JwtUtil;
+import com.chocolate.amaro.model.entity.Role;
+import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.model.request.UserRegisterRequest;
+import com.chocolate.amaro.model.response.UserRegisterResponse;
+import com.chocolate.amaro.repository.IUserRepository;
+import com.chocolate.amaro.config.security.ApplicationRole;
+import com.chocolate.amaro.service.abstraction.IRegisterUserService;
+import com.chocolate.amaro.service.abstraction.IRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
+@Service
+public class UserServiceImpl implements UserDetailsService, IRegisterUserService {
+
+    private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
+    private static final String USER_EMAIL_ERROR = "Email address is already used.";
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private IUserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Override
+    public UserRegisterResponse register(UserRegisterRequest request)throws UserAlreadyExistException {
+        if(userRepository.findByEmail(request.getEmail()) != null){
+            throw new UserAlreadyExistException(USER_EMAIL_ERROR);
+        }
+        User user = DtoUtil.convertTo(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleService.finBy(ApplicationRole.USER.getFullRoleName()));
+        user.setRoles(roles);
+        User userCreate = userRepository.save(user);
+        UserRegisterResponse userRegisterResponse = EntityUtil.concertTo(userCreate);
+        userRegisterResponse.setToken(jwtUtil.generateToken(userCreate));
+        return userRegisterResponse;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return getUser(username);
+    }
+
+    private User getUser(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
+            throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return userOptional.get();
+    }
+
+    private User getUser(String username) {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return user;
+    }
+}
