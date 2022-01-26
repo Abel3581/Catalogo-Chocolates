@@ -6,14 +6,18 @@ import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.common.JwtUtil;
 import com.chocolate.amaro.model.entity.Role;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.model.request.UserAuthenticationRequest;
 import com.chocolate.amaro.model.request.UserRegisterRequest;
+import com.chocolate.amaro.model.response.UserAuthenticatedResponse;
 import com.chocolate.amaro.model.response.UserRegisterResponse;
 import com.chocolate.amaro.repository.IUserRepository;
 import com.chocolate.amaro.config.security.ApplicationRole;
+import com.chocolate.amaro.service.abstraction.IAuthenticationService;
 import com.chocolate.amaro.service.abstraction.IRegisterUserService;
 import com.chocolate.amaro.service.abstraction.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +31,7 @@ import java.util.Optional;
 
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IRegisterUserService {
+public class UserServiceImpl implements UserDetailsService, IRegisterUserService, IAuthenticationService {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
@@ -81,5 +85,13 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
             throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
         }
         return user;
+    }
+
+    @Override
+    public UserAuthenticatedResponse authentication(UserAuthenticationRequest authRequest) {
+        User user = getUser(authRequest.getEmail());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(),authRequest.getPassword()));
+
+        return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail());
     }
 }
