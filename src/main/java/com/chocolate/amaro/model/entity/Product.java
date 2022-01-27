@@ -27,6 +27,9 @@ public class Product {
     
     @Column(nullable = false)
     private String image;
+
+    @Column(nullable = false)
+    private Integer price;
     
     @Column(name = "soft_delete")
     private boolean softDelete;
