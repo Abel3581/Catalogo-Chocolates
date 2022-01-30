@@ -1,7 +1,10 @@
 package com.chocolate.amaro.common;
 
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.model.response.CategoryResponse;
+import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.model.response.UserRegisterResponse;
 import org.springframework.stereotype.Component;
@@ -32,4 +35,27 @@ public class EntityUtil {
         response.setName(product.getName());
         return response;
     }
+
+    public static ProductDetailsResponse convertTo2(Product product){
+        ProductDetailsResponse detailsResponse = new ProductDetailsResponse();
+        CategoryResponse categoryResponse = convertTo(product.getCategory());
+        detailsResponse.setName(product.getName());
+        detailsResponse.setDescription(product.getDescription());
+        detailsResponse.setId(product.getId());
+        detailsResponse.setImage(product.getImage());
+        detailsResponse.setPrice(product.getPrice());
+        detailsResponse.setCategory(categoryResponse);
+        return detailsResponse;
+    }
+
+    public static CategoryResponse convertTo(Category category){
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setDescription(category.getDescription());
+        categoryResponse.setImage(category.getImage());
+        categoryResponse.setId(category.getId());
+        categoryResponse.setName(category.getName());
+        return categoryResponse;
+    }
+
+
 }
