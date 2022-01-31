@@ -4,7 +4,9 @@ import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
-import com.chocolate.amaro.model.response.ProductUpdateResponse;
+
+
+import javax.persistence.EntityNotFoundException;
 
 public interface IProductService {
 
@@ -16,5 +18,5 @@ public interface IProductService {
 
     ProductDto update(Long id, ProductDto productDto);
 
-    void delete(Long id);
+    void delete(Long id) throws EntityNotFoundException;
 }

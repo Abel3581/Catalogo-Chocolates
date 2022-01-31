@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,6 +13,8 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE products SET soft_delete = true WHERE products_id=?")
+@Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
 public class Product {
@@ -32,7 +36,7 @@ public class Product {
     private Long price;
 
     @Column(name = "soft_delete")
-    private boolean softDelete;
+    private boolean softDelete = Boolean.FALSE;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id")
