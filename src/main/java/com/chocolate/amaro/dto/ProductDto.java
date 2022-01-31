@@ -1,17 +1,15 @@
-package com.chocolate.amaro.model.request;
+package com.chocolate.amaro.dto;
 
-import com.chocolate.amaro.model.response.CategoryResponse;
+import com.chocolate.amaro.model.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class ProductRequest {
+@Getter @Setter
+public class ProductDto {
 
     @NotBlank(message = "name may not be empty")
     private String name;
@@ -28,5 +26,6 @@ public class ProductRequest {
 
     @NotNull(message = "Category may not be empty")
     private Long categoryId;
+
 
 }

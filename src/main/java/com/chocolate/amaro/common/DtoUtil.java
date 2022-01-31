@@ -4,6 +4,7 @@ import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.request.UserRegisterRequest;
+import com.chocolate.amaro.model.response.ProductUpdateResponse;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,4 +34,6 @@ public class DtoUtil {
         product.setCategory(categoryService.getCategory(productRequest.getCategoryId()));
         return product;
     }
+
+
 }

@@ -1,6 +1,9 @@
 package com.chocolate.amaro.service;
 
+import com.chocolate.amaro.dto.CategoryDto;
+import com.chocolate.amaro.mapper.CategoryMapper;
 import com.chocolate.amaro.model.entity.Category;
+import com.chocolate.amaro.model.response.CategoryResponse;
 import com.chocolate.amaro.repository.ICategoryRepository;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private ICategoryRepository categoryRepository;
 
+    @Autowired
+    private CategoryMapper categoryMapper;
+
     @Override
     public Category getCategory(long categoryId) {
         Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
@@ -25,4 +31,14 @@ public class CategoryServiceImpl implements ICategoryService {
         }
         return categoryOptional.get();
     }
+
+    @Override
+    public CategoryDto save(CategoryDto categoryDto) {
+        Category entity = categoryMapper.categoryDto2Entity(categoryDto);
+        Category entitySaved = categoryRepository.save(entity);
+        CategoryDto result = categoryMapper.categoryEntity2Dto(entitySaved);
+        return result;
+    }
+
+
 }

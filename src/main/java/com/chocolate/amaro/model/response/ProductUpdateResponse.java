@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class ProductDetailsResponse {
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+public class ProductUpdateResponse {
 
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private String image;
-    private Long price;
-    private CategoryResponse category;
-
+    private Integer price;
+    private long categoryId;
 
 }

@@ -1,9 +1,11 @@
 package com.chocolate.amaro.controller;
 
 import com.chocolate.amaro.Exception.FieldInvalidException;
+import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
+import com.chocolate.amaro.model.response.ProductUpdateResponse;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,12 @@ public class ProductController {
     public ResponseEntity<ProductDetailsResponse> getDetailsById(@PathVariable Long id){
         ProductDetailsResponse response = productService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto){
+        ProductDto result = productService.update(id, productDto);
+        return ResponseEntity.ok().body(result);
     }
 
 }

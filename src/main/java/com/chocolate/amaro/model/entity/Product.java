@@ -17,24 +17,29 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "products_id")
-    private long id;
-    
+    private Long id;
+
     @Column(nullable = false)
     private String name;
-    
+
     @Column(nullable = false)
     private String description;
-    
+
     @Column(nullable = false)
     private String image;
 
     @Column(nullable = false)
-    private Integer price;
-    
+    private Long price;
+
     @Column(name = "soft_delete")
     private boolean softDelete;
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id")
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Category category;
+
+
+
+
+
 }
