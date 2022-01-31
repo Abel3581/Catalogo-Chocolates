@@ -9,10 +9,10 @@ import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
-import com.chocolate.amaro.model.response.ProductUpdateResponse;
 import com.chocolate.amaro.repository.IProductRepository;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import com.chocolate.amaro.service.abstraction.IProductService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
@@ -65,8 +65,10 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void delete(Long id) {
-        productRepository.deleteById(id);
+    public void delete(Long id) throws EntityNotFoundException{
+        Product product = getProduct(id);
+        product.setSoftDelete(true);
+        productRepository.save(product);
     }
 
 
