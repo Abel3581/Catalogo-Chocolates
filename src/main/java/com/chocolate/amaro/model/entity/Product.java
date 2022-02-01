@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product extends RepresentationModel<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "products_id")
