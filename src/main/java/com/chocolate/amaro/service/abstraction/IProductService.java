@@ -10,6 +10,7 @@ import javassist.NotFoundException;
 
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 public interface IProductService {
 
@@ -25,4 +26,6 @@ public interface IProductService {
 
 
     PageDto<ProductDto> getPage(Integer page, Integer sizePage, String sortBy)throws NotFoundException;
+
+    List<ProductDto> getAllProducts();
 }

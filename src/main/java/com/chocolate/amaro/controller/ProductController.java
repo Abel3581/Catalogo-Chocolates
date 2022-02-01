@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -56,6 +57,12 @@ public class ProductController {
             @RequestParam(defaultValue = "id") String sortBy) throws NotFoundException {
         return new ResponseEntity<>(productService.getPage(page, sizePage, sortBy), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductDto>> getAllProducts(){
+        List<ProductDto> productDtos = productService.getAllProducts();
+        return ResponseEntity.ok().body(productDtos);
     }
 
 

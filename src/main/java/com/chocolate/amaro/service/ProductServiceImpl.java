@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -88,6 +89,13 @@ public class ProductServiceImpl implements IProductService {
             throw new NotFoundExceptions("The page does not exist.");
         }
         return productMapper.toPageDto(pageRecovered, page,  totalElements, totalPages);
+    }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+        List<Product> entities = productRepository.findAll();
+        List<ProductDto> result = productMapper.productEntityList2DtoList(entities);
+        return result;
     }
 
 

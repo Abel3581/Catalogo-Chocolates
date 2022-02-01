@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/product/{id}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/product/{id}").hasAnyRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET,"/product/page").permitAll()
+                .antMatchers(HttpMethod.GET,"/product/all").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

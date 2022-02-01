@@ -62,10 +62,25 @@ public class ProductMapper {
 
         if (productsPage.hasContent()) {
             membersDto = productsPage.stream().map(member -> {
-                return new ProductDto(member.getId(), member.getName(), member.getImage(), member.getDescription(), member.getPrice(),member.getCategory().getId());
+                return new ProductDto(member.getId(), member.getName(), member.getImage(), member.getDescription(), member.getPrice(), member.getCategory().getId());
             }).collect(Collectors.toList());
         }
         return membersDto;
     }
 
+    public List<ProductDto> productEntityList2DtoList(List<Product> entities) {
+        List<ProductDto> dtos = new ArrayList<>();
+        ProductDto productDto;
+        for (Product entity : entities) {
+            productDto = new ProductDto();
+            productDto.setId(entity.getId());
+            productDto.setName(entity.getName());
+            productDto.setImage(entity.getImage());
+            productDto.setPrice(entity.getPrice());
+            productDto.setDescription(entity.getDescription());
+            productDto.setCategoryId(entity.getCategory().getId());
+            dtos.add(productDto);
+        }
+        return dtos;
+    }
 }
