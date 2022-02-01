@@ -1,12 +1,15 @@
 package com.chocolate.amaro.controller;
 
 import com.chocolate.amaro.Exception.FieldInvalidException;
+import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
+import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.model.response.ProductUpdateResponse;
 import com.chocolate.amaro.service.abstraction.IProductService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +48,15 @@ public class ProductController {
         productService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<PageDto<ProductDto>> getPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer sizePage,
+            @RequestParam(defaultValue = "id") String sortBy) throws NotFoundException {
+        return new ResponseEntity<>(productService.getPage(page, sizePage, sortBy), HttpStatus.OK);
+
+    }
+
 
 }

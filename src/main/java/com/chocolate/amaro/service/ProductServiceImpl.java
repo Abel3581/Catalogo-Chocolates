@@ -1,8 +1,10 @@
 package com.chocolate.amaro.service;
 
+import com.chocolate.amaro.Exception.NotFoundExceptions;
 import com.chocolate.amaro.Exception.ParamNotFound;
 import com.chocolate.amaro.common.DtoUtil;
 import com.chocolate.amaro.common.EntityUtil;
+import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.mapper.ProductMapper;
 import com.chocolate.amaro.model.entity.Product;
@@ -14,6 +16,10 @@ import com.chocolate.amaro.service.abstraction.ICategoryService;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -71,6 +77,19 @@ public class ProductServiceImpl implements IProductService {
         productRepository.save(product);
     }
 
+    @Override
+    public PageDto<ProductDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+        Page<Product> pageRecovered = productRepository.findAll(pageable);
+        Integer totalPages = pageRecovered.getTotalPages();
+        Long totalElements = pageRecovered.getTotalElements();
+
+        if (totalPages < page) {
+            throw new NotFoundExceptions("The page does not exist.");
+        }
+        return productMapper.toPageDto(pageRecovered, page,  totalElements, totalPages);
+    }
+
 
     private Product getProduct(Long id){
         Optional<Product> product = productRepository.findById(id);
@@ -79,4 +98,8 @@ public class ProductServiceImpl implements IProductService {
         }
         return product.get();
     }
+
+
+
+
 }
