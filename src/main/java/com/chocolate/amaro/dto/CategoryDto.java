@@ -17,12 +17,14 @@ public class CategoryDto {
     @Pattern(regexp = "^([a-zA-Z]+)$", message = "Este campo no debe contener números")
     private String name;
 
+    @NotNull
     private String description;
 
     private String image;
 
     @CreationTimestamp
     private Timestamp timestamp;
+
 
     private boolean softDelete;
 }
