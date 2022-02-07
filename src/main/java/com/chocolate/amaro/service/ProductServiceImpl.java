@@ -6,12 +6,14 @@ import com.chocolate.amaro.common.DtoUtil;
 import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
+import com.chocolate.amaro.dto.ProductFiltersDto;
 import com.chocolate.amaro.mapper.ProductMapper;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.repository.IProductRepository;
+import com.chocolate.amaro.repository.specifications.ProductSpecification;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import javassist.NotFoundException;
@@ -21,7 +23,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +50,12 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private ProductSpecification specification;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public ProductResponse addProduct(ProductRequest productRequest) {
@@ -107,7 +119,14 @@ public class ProductServiceImpl implements IProductService {
         return product.get();
     }
 
-
-
-
+    @Override
+    public List<ProductDto> getProductByName(String name) {
+        List<Product> product = productRepository.findByName(name);
+        List<ProductDto> result = productMapper.productEntityList2DtoList(product);
+        return result;
+    }
 }
+
+
+
+

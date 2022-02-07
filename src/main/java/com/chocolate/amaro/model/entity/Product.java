@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
+
 public class Product extends RepresentationModel<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
