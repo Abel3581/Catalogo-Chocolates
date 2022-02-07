@@ -2,6 +2,7 @@ package com.chocolate.amaro.service.abstraction;
 
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
+import com.chocolate.amaro.dto.ProductFiltersDto;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
@@ -10,6 +11,7 @@ import javassist.NotFoundException;
 
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface IProductService {
@@ -28,4 +30,7 @@ public interface IProductService {
     PageDto<ProductDto> getPage(Integer page, Integer sizePage, String sortBy)throws NotFoundException;
 
     List<ProductDto> getAllProducts();
+
+
+    List<ProductDto> getProductByName(String name);
 }

@@ -2,6 +2,7 @@ package com.chocolate.amaro.mapper;
 
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
+import com.chocolate.amaro.dto.ProductFiltersDto;
 import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
@@ -82,5 +83,44 @@ public class ProductMapper {
             dtos.add(productDto);
         }
         return dtos;
+    }
+
+    public List<ProductDto> productEntitySet2DtoList(List<Product> entities) {
+        List<ProductDto> dtos = new ArrayList<>();
+        for (Product entity: entities){
+            dtos.add(productEntityBasic2Dto(entity));
+        }
+        return dtos;
+    }
+    public ProductDto productEntityBasic2Dto(Product entity) {
+
+        ProductDto dto = new ProductDto();
+        dto.setCategoryId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
+        dto.setPrice(entity.getPrice());
+        dto.setCategoryId(entity.getCategory().getId());
+        dto.setImage(entity.getImage());
+        return dto;
+
+    }
+
+    public List<ProductFiltersDto> productEntityListFilter2Dto(List<Product> entities) {
+        List<ProductFiltersDto> dto = new ArrayList<>();
+        for (Product entity: entities){
+            dto.add(productEntityFilter2Dto(entity));
+
+        }
+        return dto;
+    }
+    public ProductFiltersDto productEntityFilter2Dto(Product entity) {
+
+        ProductFiltersDto dto = new ProductFiltersDto();
+        dto.setCategoryId(entity.getCategory().getId());
+        dto.setName(entity.getName());
+        dto.setPrice(entity.getPrice());
+
+        return dto;
+
     }
 }

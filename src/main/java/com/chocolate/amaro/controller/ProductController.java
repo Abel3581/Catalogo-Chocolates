@@ -3,11 +3,13 @@ package com.chocolate.amaro.controller;
 import com.chocolate.amaro.Exception.FieldInvalidException;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
+import com.chocolate.amaro.dto.ProductFiltersDto;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.model.response.ProductUpdateResponse;
+import com.chocolate.amaro.repository.IProductRepository;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -24,7 +27,10 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    IProductService productService;
+    private IProductService productService;
+
+    @Autowired
+    private IProductRepository productRepository;
 
     @PostMapping("")
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) throws FieldInvalidException {
@@ -63,6 +69,12 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> getAllProducts(){
         List<ProductDto> productDtos = productService.getAllProducts();
         return ResponseEntity.ok().body(productDtos);
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<ProductDto>> getProductByName(@RequestParam String name){
+        List<ProductDto> productDetailsResponses = productService.getProductByName(name);
+        return ResponseEntity.ok().body(productDetailsResponses);
     }
 
 
