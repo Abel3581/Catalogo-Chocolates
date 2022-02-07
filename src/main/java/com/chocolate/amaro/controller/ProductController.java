@@ -29,8 +29,7 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    @Autowired
-    private IProductRepository productRepository;
+
 
     @PostMapping("")
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) throws FieldInvalidException {
@@ -77,5 +76,6 @@ public class ProductController {
         return ResponseEntity.ok().body(productDetailsResponses);
     }
 
+   
 
 }

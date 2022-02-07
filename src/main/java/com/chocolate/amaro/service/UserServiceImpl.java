@@ -15,9 +15,11 @@ import com.chocolate.amaro.config.security.ApplicationRole;
 import com.chocolate.amaro.service.abstraction.IAuthenticationService;
 import com.chocolate.amaro.service.abstraction.IRegisterUserService;
 import com.chocolate.amaro.service.abstraction.IRoleService;
+import com.chocolate.amaro.service.abstraction.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,13 +27,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IRegisterUserService, IAuthenticationService {
+public class UserServiceImpl implements UserDetailsService, IRegisterUserService, IAuthenticationService, IUserService {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
@@ -94,4 +97,19 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
         return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail());
     }
+
+    @Override
+    public User getInfoUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            String username = ((User)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
+
+        return userRepository.findByEmail(principal.toString());
+
+    }
+
+
 }
