@@ -34,7 +34,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements IProductService {
 
-    private static final String NEWS_NOT_FOUND_MESSAGE = "News not found.";
+    private static final String NEWS_NOT_FOUND_MESSAGE = "Product null.";
 
     @Autowired
     private ICategoryService categoryService;
@@ -86,8 +86,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void delete(Long id) throws EntityNotFoundException{
         Product product = getProduct(id);
-        product.setSoftDelete(true);
-        productRepository.save(product);
+            product.setSoftDelete(true);
+            productRepository.save(product);
+
     }
 
     @Override

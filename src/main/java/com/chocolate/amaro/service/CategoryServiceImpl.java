@@ -40,5 +40,12 @@ public class CategoryServiceImpl implements ICategoryService {
         return result;
     }
 
+    @Override
+    public void delete(Long id) throws EntityNotFoundException {
+        Category category = getCategory(id);
+        category.setSoftDelete(true);
+        categoryRepository.save(category);
+    }
+
 
 }
