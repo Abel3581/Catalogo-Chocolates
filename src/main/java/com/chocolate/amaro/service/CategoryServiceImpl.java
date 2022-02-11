@@ -1,6 +1,7 @@
 package com.chocolate.amaro.service;
 
 import com.chocolate.amaro.dto.CategoryDto;
+import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.mapper.CategoryMapper;
 import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.response.CategoryResponse;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,14 @@ public class CategoryServiceImpl implements ICategoryService {
         categoryRepository.save(category);
     }
 
+    @Override
+    public List<CategoryDto> getAll() {
+        List<Category> entity = categoryRepository.findAll();
+        if(entity.isEmpty()){
+            throw new RuntimeException("the category is empty");
+        }
+        List<CategoryDto> result = categoryMapper.categoryEntityList2DtoList(entity);
+        return result;
 
+    }
 }
