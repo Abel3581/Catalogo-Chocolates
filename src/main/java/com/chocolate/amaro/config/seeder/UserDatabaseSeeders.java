@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class UserDatabaseSeeders {
 
-    private static final String PASSWORD = "test1234";
+    private static final String PASSWORD = "tienda1234";
     private static final String HOST_EMAIL = "@test.com";
     private static final String DEFAULT_FIRST_NAME = "Test";
 

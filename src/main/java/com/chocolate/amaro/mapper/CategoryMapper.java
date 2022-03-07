@@ -26,6 +26,7 @@ public class CategoryMapper {
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
         dto.setImage(entity.getImage());
+        dto.setTimestamp(entity.getTimestamp());
         return dto;
     }
 

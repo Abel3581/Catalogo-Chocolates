@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class UserAuthenticationRequest {
 
     @Email(message = "Email should have a valid format")
-    @NotBlank(message = "Email connot be empty.")
+    @NotBlank(message = "Email cannot be empty.")
     private String email;
 
     @NotBlank(message = "Password cannot be empty.")

@@ -14,6 +14,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Role finBy(String name) {
+
         return roleRepository.findByName(name);
     }
 }
