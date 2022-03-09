@@ -1,5 +1,6 @@
 package com.chocolate.amaro.dto;
 
+import com.chocolate.amaro.model.entity.Category;
 import lombok.*;
 
 
@@ -16,6 +17,7 @@ public class ProductDto {
     private String image;
     private Long price;
     private Long categoryId;
+    private Category category;
 
 
 }

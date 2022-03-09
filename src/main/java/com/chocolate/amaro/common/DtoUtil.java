@@ -31,7 +31,7 @@ public class DtoUtil {
         product.setDescription(productRequest.getDescription());
         product.setPrice(productRequest.getPrice());
         product.setImage(productRequest.getImage());
-        product.setCategory(categoryService.getCategory(productRequest.getCategoryId()));
+        product.setCategoryId(productRequest.getCategoryId());
         return product;
     }
 

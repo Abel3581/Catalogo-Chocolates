@@ -23,7 +23,7 @@ To run the project execute:
 | USER{id}@test.com  | user  | 
 
 By default, 10 users with admin role and 10 users with user role will be created where the {id} in
-the email is a number from 0 to 10 per role. All the users have "test1234" as password.
+the email is a number from 0 to 10 per role. All the users have "tienda1234" as password.
 
 ### ROLES SEED
 

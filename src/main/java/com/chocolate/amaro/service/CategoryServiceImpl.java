@@ -1,10 +1,8 @@
 package com.chocolate.amaro.service;
 
 import com.chocolate.amaro.dto.CategoryDto;
-import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.mapper.CategoryMapper;
 import com.chocolate.amaro.model.entity.Category;
-import com.chocolate.amaro.model.response.CategoryResponse;
 import com.chocolate.amaro.repository.ICategoryRepository;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
