@@ -3,7 +3,6 @@ package com.chocolate.amaro.mapper;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.dto.ProductFiltersDto;
-import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

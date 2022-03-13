@@ -1,9 +1,13 @@
 package com.chocolate.amaro.service;
 
+import com.chocolate.amaro.Exception.ParamNotFound;
 import com.chocolate.amaro.Exception.UserAlreadyExistException;
 import com.chocolate.amaro.common.DtoUtil;
 import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.common.JwtUtil;
+import com.chocolate.amaro.dto.UserDtoRequest;
+import com.chocolate.amaro.dto.UserDtoResponse;
+import com.chocolate.amaro.mapper.UserMapper;
 import com.chocolate.amaro.model.entity.Role;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.model.request.UserAuthenticationRequest;
@@ -52,6 +56,9 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest request)throws UserAlreadyExistException {
@@ -109,6 +116,17 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
         return userRepository.findByEmail(principal.toString());
 
+    }
+
+    @Override
+    public UserDtoResponse update(Long id, UserDtoRequest request) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if(!userOptional.isPresent())
+            throw new ParamNotFound("User id not valid");
+        userMapper.userRefreshValues(userOptional.get(),request);
+        User userSaved = userRepository.save(userOptional.get());
+        UserDtoResponse response = userMapper.userEntity2Dto(userSaved, true);
+        return response;
     }
 
 
