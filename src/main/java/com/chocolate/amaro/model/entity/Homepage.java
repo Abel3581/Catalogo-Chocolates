@@ -32,11 +32,11 @@ public class Homepage {
     @Column(name = "org_image_url", nullable = false)
     private String image;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phone")
-    private Integer phone;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -44,7 +44,7 @@ public class Homepage {
     @Column(name = "welcome_text", nullable = false)
     private String welcomeText;
 
-    @Column(name = "about_us_text")
+    @Column(name = "about_us_text", nullable = false)
     private String aboutUsText;
 
     @Column(name = "timestamp")

@@ -44,7 +44,7 @@ public class Trolley {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "product_trolley", joinColumns = @JoinColumn(name = "trolley_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            inverseJoinColumns = @JoinColumn(name = "products_id"))
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "soft_delete")

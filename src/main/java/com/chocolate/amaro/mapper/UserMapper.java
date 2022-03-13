@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -43,4 +44,27 @@ public class UserMapper {
         }
         return response;
     }
-}
+
+    public List<UserDtoResponse> userEntityList2DTOList(List<User> users, boolean loadRoles) {
+        List<UserDtoResponse> dtoResponses = new ArrayList<>();
+        UserDtoResponse userDtoResponse;
+            for (User user : users) {
+                userDtoResponse = new UserDtoResponse();
+                userDtoResponse.setFirstName(user.getFirstName());
+                userDtoResponse.setLastName(user.getLastName());
+                userDtoResponse.setEmail(user.getEmail());
+                userDtoResponse.setPassword(user.getPassword());
+                userDtoResponse.setPhoto(user.getPhoto());
+                userDtoResponse.setCellphone(user.getCellphone());
+                if (loadRoles) {
+                    List<RoleDto> roleDtoList = roleMapper.roleEntitySet2DtoList(user.getRoles());
+                    userDtoResponse.setRoleDtoList(roleDtoList);
+                }
+                dtoResponses.add(userDtoResponse);
+            }
+        return dtoResponses;
+    }
+
+    }
+
+

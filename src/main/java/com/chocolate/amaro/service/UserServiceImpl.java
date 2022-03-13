@@ -129,5 +129,19 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
         return response;
     }
 
+    @Override
+    public void deleted(Long id) throws EntityNotFoundException{
+        User user = getUser(id);
+        user.setSoftDelete(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<UserDtoResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDtoResponse> userResults = userMapper.userEntityList2DTOList(users, true);
+        return userResults;
+    }
+
 
 }
