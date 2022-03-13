@@ -34,3 +34,10 @@ the email is a number from 0 to 10 per role. All the users have "tienda1234" as 
 |----|--------------|---------| 
 | 1  |  ROLE_ADMIN  |  ADMIN  |
 | 2  |  ROLE_USER   |  USER   | 
+
+
+Information to develop:<br>
+The client wants an api rest to sell their products, they are asking for a login and registration, so that the buyer can 
+select their products and these are saved in the cart once purchased, the buyer is sent an email with the receipt, they can pay 
+in cash and for the paid market, the products must be displayed in 10 elements, there are categories, slides, security with spring security.
+When a customer makes a purchase, a notification should appear advising the admin that a purchase has been made.
