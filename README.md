@@ -13,9 +13,9 @@ PROXIMATE UML...
 - Spring boot
 - jpa
 
-To run the project execute:
+## Autores :star_struck:
 
-`mvn spring-boot:run`
+- Abel Acevedo- *Desarrollador Backend, Tester, Documentación* - :alien:[Abel3581](https://github.com/Abel3581)
 
 
 ### USERS SEED
@@ -41,3 +41,8 @@ The client wants an api rest to sell their products, they are asking for a login
 select their products and these are saved in the cart once purchased, the buyer is sent an email with the receipt, they can pay 
 in cash and for the paid market, the products must be displayed in 10 elements, there are categories, slides, security with spring security.
 When a customer makes a purchase, a notification should appear advising the admin that a purchase has been made.
+For managing images, AWS can be used to save and consume them.
+<br>
+For the Front End it would be ideal to use React with bootstrap.
+<br>
+Any java and react developer will be welcome to participate.
