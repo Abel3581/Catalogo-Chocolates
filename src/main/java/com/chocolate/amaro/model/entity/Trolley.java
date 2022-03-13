@@ -39,7 +39,7 @@ public class Trolley {
 
     //REFERENCIA AL DUEÑO DEL CARRITO
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = true)
     private User buyer;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
