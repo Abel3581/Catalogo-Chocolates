@@ -3,13 +3,9 @@ package com.chocolate.amaro.controller;
 import com.chocolate.amaro.Exception.FieldInvalidException;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
-import com.chocolate.amaro.dto.ProductFiltersDto;
-import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
-import com.chocolate.amaro.model.response.ProductUpdateResponse;
-import com.chocolate.amaro.repository.IProductRepository;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -31,7 +26,7 @@ public class ProductController {
 
 
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) throws FieldInvalidException {
         ProductResponse response = productService.addProduct(productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

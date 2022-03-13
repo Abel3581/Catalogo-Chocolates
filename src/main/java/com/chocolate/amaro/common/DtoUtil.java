@@ -1,5 +1,6 @@
 package com.chocolate.amaro.common;
 
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.model.request.ProductRequest;
@@ -32,7 +33,9 @@ public class DtoUtil {
         product.setDescription(productRequest.getDescription());
         product.setPrice(productRequest.getPrice());
         product.setImage(productRequest.getImage());
-        product.setCategory(categoryService.getCategory(productRequest.getCategoryId()));
+        Category category = categoryService.getCategory(productRequest.getCategoryId());
+        product.setCategory(category);
+
         return product;
     }
 

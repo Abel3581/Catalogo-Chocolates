@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-;
+
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class ProductRequest {
@@ -26,7 +26,7 @@ public class ProductRequest {
     private Long price;
 
     @NotNull(message = "Category may not be empty")
-    private Long categoryId;
+    private long categoryId;
 
 
 

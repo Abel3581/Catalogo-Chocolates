@@ -13,8 +13,8 @@ public class CategoryDto {
 
     private Long id;
 
-    @NotNull(message = "El nombre no puede estar vacio")
-    @Pattern(regexp = "^([a-zA-Z]+)$", message = "Este campo no debe contener números")
+    @NotNull(message = "The name cannot be empty")
+    @Pattern(regexp = "^([a-zA-Z]+)$", message = "This field must not contain numbers")
     private String name;
 
     @NotNull
@@ -24,7 +24,6 @@ public class CategoryDto {
 
     @CreationTimestamp
     private Timestamp timestamp;
-
 
     private boolean softDelete;
 }

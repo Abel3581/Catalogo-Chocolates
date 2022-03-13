@@ -44,9 +44,10 @@ public class Product extends RepresentationModel<Product> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate creationDate;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "categories_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "categories_id", insertable = true, updatable = true)
     private Category category;
+
 
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Trolley> trolleyList = new ArrayList<>();

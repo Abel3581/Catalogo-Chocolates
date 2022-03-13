@@ -1,7 +1,6 @@
 package com.chocolate.amaro.model.response;
 
 import com.chocolate.amaro.model.entity.Category;
-import com.chocolate.amaro.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -3,15 +3,12 @@ package com.chocolate.amaro.common;
 import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.User;
-import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.*;
 import com.chocolate.amaro.repository.ICategoryRepository;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
 
 @Component
 public class EntityUtil {
@@ -21,6 +18,7 @@ public class EntityUtil {
 
     @Autowired
     private static ICategoryService categoryService;
+
 
     public EntityUtil(){}
 
@@ -32,23 +30,20 @@ public class EntityUtil {
         userRegisterResponse.setEmail(user.getEmail());
         userRegisterResponse.setCellphone(user.getCellphone());
         userRegisterResponse.setPhoto(userRegisterResponse.getPhoto());
+
         return userRegisterResponse;
 
     }
 
     public static ProductResponse convertTo(Product product) {
-
-
         ProductResponse response = new ProductResponse();
-        Category category = categoryService.getCategory(product.getCategory().getId());
+
         response.setId(product.getId());
         response.setDescription(product.getDescription());
         response.setPrice(product.getPrice());
         response.setImage(product.getImage());
         response.setName(product.getName());
-       response.setCategory(category);
-
-
+        response.setCategory(product.getCategory());
         return response;
     }
 
