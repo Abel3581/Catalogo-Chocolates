@@ -47,6 +47,7 @@ public class UserDatabaseSeeders {
             user.setFirstName(DEFAULT_FIRST_NAME);
             user.setLastName(applicationRole.getName() + index);
             user.setEmail(applicationRole.getName() + index + HOST_EMAIL);
+            user.setCellphone("1170197183");
             user.setPassword(passwordEncoder.encode(PASSWORD));
             List<Role> roles = new ArrayList<>();
             roles.add(roleRepository.findByName(applicationRole.getFullRoleName()));

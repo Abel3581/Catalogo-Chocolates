@@ -47,6 +47,7 @@ public class Trolley {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
 
-    private boolean deleted = Boolean.FALSE;
+    @Column(name = "soft_delete")
+    private boolean softDelete = Boolean.FALSE;
 
 }

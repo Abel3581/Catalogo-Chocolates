@@ -3,6 +3,8 @@ package com.chocolate.amaro.model.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE user_id=?")
+@Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -26,9 +30,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -36,10 +40,12 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "photo")
     private String photo;
+    @Column(name = "cell_phone", nullable = false)
+    private String cellphone;
     @CreationTimestamp
     private Timestamp timestamp;
-    @Column(name = "soft_deleted")
-    private boolean softDeleted;
+    @Column(name = "soft_delete")
+    private boolean softDelete;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @Column(name = "roles_id")
@@ -78,6 +84,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !this.softDeleted;
+        return !this.softDelete;
     }
 }

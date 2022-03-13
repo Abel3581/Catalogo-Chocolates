@@ -63,7 +63,7 @@ public class ProductMapper {
 
         if (productsPage.hasContent()) {
             membersDto = productsPage.stream().map(member -> {
-                return new ProductDto(member.getId(), member.getName(), member.getImage(), member.getDescription(), member.getPrice(), member.getCategoryId(),member.getCategory());
+                return new ProductDto(member.getId(), member.getName(), member.getImage(), member.getDescription(), member.getPrice(), member.getCategory().getId(),member.getCategory());
             }).collect(Collectors.toList());
         }
         return membersDto;
