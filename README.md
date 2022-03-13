@@ -32,5 +32,5 @@ the email is a number from 0 to 10 per role. All the users have "tienda1234" as 
 
 | id |  description |  name   |
 |----|--------------|---------| 
-| 1  |  ROLE_USER   |  USER   |
-| 2  |  ROLE_ADMIN  |  ADMIN  | 
+| 1  |  ROLE_ADMIN  |  ADMIN  |
+| 2  |  ROLE_USER   |  USER   | 
