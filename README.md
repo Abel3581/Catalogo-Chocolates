@@ -10,6 +10,8 @@ PROXIMAMENTE UML...
 - Maven
 - JDK 11
 - MySQL
+- Spring boot
+- jpa
 
 To run the project execute:
 
