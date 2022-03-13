@@ -13,6 +13,7 @@ public class UserRegisterResponse {
     private String lastName;
     private String email;
     private String photo;
+    private String cellphone;
     private String token;
 
 }

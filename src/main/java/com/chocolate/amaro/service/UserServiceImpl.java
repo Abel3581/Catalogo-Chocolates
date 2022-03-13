@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
     private User getUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
+        if (userOptional.isEmpty() || userOptional.get().isSoftDelete()) {
             throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
         }
         return userOptional.get();

@@ -22,6 +22,7 @@ public class DtoUtil {
         user.setFirstName(userRegisterRequest.getFirstName());
         user.setLastName(userRegisterRequest.getLastName());
         user.setEmail(userRegisterRequest.getEmail());
+        user.setCellphone(userRegisterRequest.getCellphone());
         return user;
     }
 
@@ -31,7 +32,7 @@ public class DtoUtil {
         product.setDescription(productRequest.getDescription());
         product.setPrice(productRequest.getPrice());
         product.setImage(productRequest.getImage());
-        product.setCategoryId(productRequest.getCategoryId());
+        product.setCategory(categoryService.getCategory(productRequest.getCategoryId()));
         return product;
     }
 

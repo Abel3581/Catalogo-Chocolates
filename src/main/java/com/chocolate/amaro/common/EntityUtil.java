@@ -30,6 +30,7 @@ public class EntityUtil {
         userRegisterResponse.setLastName(user.getLastName());
         userRegisterResponse.setId(user.getId());
         userRegisterResponse.setEmail(user.getEmail());
+        userRegisterResponse.setCellphone(user.getCellphone());
         userRegisterResponse.setPhoto(userRegisterResponse.getPhoto());
         return userRegisterResponse;
 
@@ -39,7 +40,7 @@ public class EntityUtil {
 
 
         ProductResponse response = new ProductResponse();
-        Category category = categoryService.getCategory(product.getCategoryId());
+        Category category = categoryService.getCategory(product.getCategory().getId());
         response.setId(product.getId());
         response.setDescription(product.getDescription());
         response.setPrice(product.getPrice());

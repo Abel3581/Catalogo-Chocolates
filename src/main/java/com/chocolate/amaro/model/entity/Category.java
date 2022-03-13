@@ -26,10 +26,13 @@ public class Category {
     @Column(name = "categories_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 
+    @Column(name = "image_url")
     private String image;
 
     @CreationTimestamp

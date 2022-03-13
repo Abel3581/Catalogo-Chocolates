@@ -22,7 +22,6 @@ import java.util.List;
 @Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
-
 public class Product extends RepresentationModel<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +34,7 @@ public class Product extends RepresentationModel<Product> {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "image_url",nullable = false)
     private String image;
 
     @Column(nullable = false)
@@ -49,11 +48,12 @@ public class Product extends RepresentationModel<Product> {
     @JoinColumn(name = "categories_id", insertable = false, updatable = false)
     private Category category;
 
-    @Column(name = "categories_id", nullable = false)
-    private Long categoryId;
-
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Trolley> trolleyList = new ArrayList<>();
+
+    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "user_id")
+    //private User user;
 
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;

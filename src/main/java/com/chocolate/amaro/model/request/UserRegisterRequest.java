@@ -27,5 +27,7 @@ public class UserRegisterRequest {
     @Size(min = 6, max = 25, message = "La contraseña debe ser entre 6 y 25 caracteres")
     private String password;
 
+    @NotBlank (message = "El celular no puede estar vacía")
+    private String cellphone;
 
 }
