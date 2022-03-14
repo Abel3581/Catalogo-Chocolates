@@ -44,6 +44,7 @@ public class EntityUtil {
         response.setImage(product.getImage());
         response.setName(product.getName());
         response.setCategory(product.getCategory());
+        response.setTimestamp(product.getTimestamp());
         return response;
     }
 

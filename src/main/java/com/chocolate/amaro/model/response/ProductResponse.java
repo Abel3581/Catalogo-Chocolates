@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class ProductResponse {
@@ -14,7 +17,9 @@ public class ProductResponse {
     private String description;
     private String image;
     private Long price;
+    private Timestamp timestamp;
     private Category category;
+
 
 
 }

@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
@@ -28,6 +31,6 @@ public class ProductRequest {
     @NotNull(message = "Category may not be empty")
     private long categoryId;
 
-
+    private Timestamp timestamp;
 
 }

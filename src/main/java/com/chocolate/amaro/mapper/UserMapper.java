@@ -50,6 +50,7 @@ public class UserMapper {
         UserDtoResponse userDtoResponse;
             for (User user : users) {
                 userDtoResponse = new UserDtoResponse();
+                userDtoResponse.setId(user.getId());
                 userDtoResponse.setFirstName(user.getFirstName());
                 userDtoResponse.setLastName(user.getLastName());
                 userDtoResponse.setEmail(user.getEmail());
