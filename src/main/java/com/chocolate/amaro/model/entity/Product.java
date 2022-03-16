@@ -24,7 +24,7 @@ import java.util.List;
 @Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
-public class Product extends RepresentationModel<Product> {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "products_id")

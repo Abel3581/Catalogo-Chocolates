@@ -3,12 +3,22 @@ package com.chocolate.amaro.mapper;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.dto.ProductFiltersDto;
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
+import com.chocolate.amaro.model.request.ProductRequest;
+import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +27,7 @@ import java.util.stream.Collectors;
 public class ProductMapper {
 
     @Autowired
-    ICategoryService categoryService;
+    private ICategoryService categoryService;
 
     public void productEntityRefreshValues(Product product, ProductDto productDto) {
         product.setName(productDto.getName());
@@ -121,5 +131,57 @@ public class ProductMapper {
 
         return dto;
 
+    }
+
+
+    public ProductResponse concertToResult(Product product) {
+        ProductResponse response = new ProductResponse();
+
+        response.setId(product.getId());
+        response.setDescription(product.getDescription());
+        response.setPrice(product.getPrice());
+        response.setImage(product.getImage());
+        response.setName(product.getName());
+        response.setCategory(product.getCategory());
+        response.setTimestamp(product.getTimestamp());
+        return response;
+    }
+
+    public Product convertTo(ProductRequest productRequest, MultipartFile image) {
+        Product product = new Product();
+        product.setName(productRequest.getName());
+        product.setDescription(productRequest.getDescription());
+        product.setPrice(productRequest.getPrice());
+        product.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        Category category = categoryService.getCategory(productRequest.getCategoryId());
+        product.setCategory(category);
+
+        if(!image.isEmpty()){
+           // Path directorioImagenes = Paths.get("src//main//resources//images");
+            String rutaAbsoluta = "C://Images//recursos";
+            try {
+                byte[] bytesImg = image.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta +"//"+ image.getOriginalFilename());
+                Files.write(rutaCompleta,bytesImg);
+                product.setImage(image.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return product;
+    }
+
+    public ProductResponse convertToEntity(Product product) {
+        ProductResponse response = new ProductResponse();
+
+        response.setId(product.getId());
+        response.setDescription(product.getDescription());
+        response.setPrice(product.getPrice());
+        response.setImage(product.getImage());
+        response.setName(product.getName());
+        response.setCategory(product.getCategory());
+        response.setTimestamp(product.getTimestamp());
+        return response;
     }
 }

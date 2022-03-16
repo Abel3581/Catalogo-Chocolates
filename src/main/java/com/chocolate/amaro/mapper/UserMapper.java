@@ -24,7 +24,7 @@ public class UserMapper {
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCellphone(request.getCellphone());
-        user.setPhoto(request.getPhoto());
+        user.setImage(request.getImage());
         user.setEmail(request.getEmail());
 
     }
@@ -36,7 +36,7 @@ public class UserMapper {
         response.setLastName(userSaved.getLastName());
         response.setCellphone(userSaved.getCellphone());
         response.setPassword(userSaved.getPassword());
-        response.setPhoto(userSaved.getPhoto());
+        response.setImage(userSaved.getImage());
         response.setEmail(userSaved.getEmail());
         if(loadRoles){
             List<RoleDto>  roleDtoList = roleMapper.roleEntitySet2DtoList(userSaved.getRoles());
@@ -55,7 +55,7 @@ public class UserMapper {
                 userDtoResponse.setLastName(user.getLastName());
                 userDtoResponse.setEmail(user.getEmail());
                 userDtoResponse.setPassword(user.getPassword());
-                userDtoResponse.setPhoto(user.getPhoto());
+                userDtoResponse.setImage(user.getImage());
                 userDtoResponse.setCellphone(user.getCellphone());
                 if (loadRoles) {
                     List<RoleDto> roleDtoList = roleMapper.roleEntitySet2DtoList(user.getRoles());

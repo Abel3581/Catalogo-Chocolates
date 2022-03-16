@@ -38,8 +38,8 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "photo")
-    private String photo;
+    @Column(name = "image_url")
+    private String image;
     @Column(name = "cell_phone", nullable = false)
     private String cellphone;
     @CreationTimestamp

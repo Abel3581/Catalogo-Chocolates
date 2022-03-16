@@ -19,7 +19,7 @@ public class UserDtoRequest {
 
     private String password;
 
-    private String photo;
+    private String image;
 
     private String cellphone;
 
