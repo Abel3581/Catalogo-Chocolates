@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -21,16 +22,19 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+
     @Autowired
     private IProductService productService;
 
-
-
-    @PostMapping
-    public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) throws FieldInvalidException {
-        ProductResponse response = productService.addProduct(productRequest);
+    //save a product and its image. Save the image to drive c:Images/resources
+    //This type of saving can be improved by eg: aws or another cloud service
+    @PostMapping("/save")
+    public ResponseEntity<ProductResponse> addProduct(@Valid @ModelAttribute ProductRequest productRequest, @RequestParam("file")
+                                                           MultipartFile image) throws FieldInvalidException{
+        ProductResponse response = productService.addProduct(productRequest, image);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailsResponse> getDetailsById(@PathVariable Long id){
@@ -70,7 +74,13 @@ public class ProductController {
         List<ProductDto> productDetailsResponses = productService.getProductByName(name);
         return ResponseEntity.ok().body(productDetailsResponses);
     }
+/**
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<List<ProductDto>> getProductBYCategoryId(@PathVariable Long idCategory){
+        List<ProductDto> productsResponse = productService.getProductByCategoryId(idCategory);
+        return ResponseEntity.ok().body(productsResponse);
+    }
+**/
 
-   
 
 }

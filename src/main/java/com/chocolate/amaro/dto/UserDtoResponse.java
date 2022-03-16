@@ -24,7 +24,7 @@ public class UserDtoResponse {
 
     private String password;
 
-    private String photo;
+    private String image;
 
     private String cellphone;
 

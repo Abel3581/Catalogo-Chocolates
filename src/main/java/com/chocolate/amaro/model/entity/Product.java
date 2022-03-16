@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 @Where(clause = "soft_delete = false")
 @Entity
 @Table(name = "products")
-public class Product extends RepresentationModel<Product> {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "products_id")
@@ -40,9 +42,8 @@ public class Product extends RepresentationModel<Product> {
     @Column(nullable = false)
     private Long price;
 
-    @Column(name = "creation_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate creationDate;
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id", insertable = true, updatable = true)

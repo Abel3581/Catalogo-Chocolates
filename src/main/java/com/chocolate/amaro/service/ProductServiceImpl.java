@@ -6,14 +6,12 @@ import com.chocolate.amaro.common.DtoUtil;
 import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
-import com.chocolate.amaro.dto.ProductFiltersDto;
 import com.chocolate.amaro.mapper.ProductMapper;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.repository.IProductRepository;
-import com.chocolate.amaro.repository.specifications.ProductSpecification;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import com.chocolate.amaro.service.abstraction.IProductService;
 import javassist.NotFoundException;
@@ -23,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -33,6 +32,7 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements IProductService {
+
 
     private static final String NEWS_NOT_FOUND_MESSAGE = "Product null.";
 
@@ -51,19 +51,8 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private ProductMapper productMapper;
 
-    @Autowired
-    private ProductSpecification specification;
-
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    public ProductResponse addProduct(ProductRequest productRequest) {
-        Product product = dtoUtil.convertTo(productRequest);
-        Product saved = productRepository.save(product);
-        ProductResponse result = EntityUtil.convertTo(saved);
-        return result;
-    }
 
     @Override
     public ProductDetailsResponse getById(Long id) {
@@ -126,6 +115,17 @@ public class ProductServiceImpl implements IProductService {
         List<ProductDto> result = productMapper.productEntityList2DtoList(product);
         return result;
     }
+
+
+    @Override
+    public ProductResponse addProduct(ProductRequest productRequest, MultipartFile image) {
+        Product product = productMapper.convertTo(productRequest,image);
+        Product saved = productRepository.save(product);
+        ProductResponse result = productMapper.convertToEntity(saved);
+        return result;
+
+    }
+
 }
 
 
