@@ -34,14 +34,13 @@ public class ProductController {
         ProductResponse response = productService.addProduct(productRequest, image);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-
+/**
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailsResponse> getDetailsById(@PathVariable Long id){
         ProductDetailsResponse response = productService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
+**/
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto){
         ProductDto result = productService.update(id, productDto);
@@ -74,13 +73,14 @@ public class ProductController {
         List<ProductDto> productDetailsResponses = productService.getProductByName(name);
         return ResponseEntity.ok().body(productDetailsResponses);
     }
-/**
-    @GetMapping("/{categoryId}")
-    public ResponseEntity<List<ProductDto>> getProductBYCategoryId(@PathVariable Long idCategory){
-        List<ProductDto> productsResponse = productService.getProductByCategoryId(idCategory);
-        return ResponseEntity.ok().body(productsResponse);
+
+    //returns the products that have that category
+    @GetMapping("/product/{idCategory}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategoryId(@PathVariable Long idCategory){
+        List<ProductDto> productDtos = productService.getProductsByCategoryId(idCategory);
+        return ResponseEntity.ok().body(productDtos);
     }
-**/
+
 
 
 }

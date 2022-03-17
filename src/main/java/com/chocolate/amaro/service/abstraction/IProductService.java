@@ -14,7 +14,7 @@ import java.util.List;
 public interface IProductService {
 
 
-    ProductDetailsResponse getById(Long id);
+    //ProductDetailsResponse getById(Long id);
 
 
     ProductDto update(Long id, ProductDto productDto);
@@ -29,7 +29,8 @@ public interface IProductService {
 
     List<ProductDto> getProductByName(String name);
 
-    //List<ProductDto> getProductByCategoryId(Long idCategory);
 
     ProductResponse addProduct(ProductRequest productRequest, MultipartFile image);
+
+    List<ProductDto> getProductsByCategoryId(Long idCategory);
 }

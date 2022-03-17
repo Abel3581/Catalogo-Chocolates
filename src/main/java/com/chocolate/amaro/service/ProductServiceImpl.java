@@ -27,14 +27,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements IProductService {
 
 
-    private static final String NEWS_NOT_FOUND_MESSAGE = "Product null.";
+    private static final String PRODUCTS_NOT_FOUND_MESSAGE = "Product null.";
 
     @Autowired
     private ICategoryService categoryService;
@@ -53,13 +56,13 @@ public class ProductServiceImpl implements IProductService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
+/**
     @Override
     public ProductDetailsResponse getById(Long id) {
         Product product = getProduct(id);
         return EntityUtil.convertTo2(product);
     }
-
+**/
     @Override
     public ProductDto update(Long id, ProductDto productDto) {
         Optional<Product> entity = productRepository.findById(id);
@@ -104,7 +107,7 @@ public class ProductServiceImpl implements IProductService {
     private Product getProduct(Long id){
         Optional<Product> product = productRepository.findById(id);
         if(product.isEmpty() || product.get().isSoftDelete()){
-            throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+            throw new EntityNotFoundException(PRODUCTS_NOT_FOUND_MESSAGE);
         }
         return product.get();
     }
@@ -116,7 +119,6 @@ public class ProductServiceImpl implements IProductService {
         return result;
     }
 
-
     @Override
     public ProductResponse addProduct(ProductRequest productRequest, MultipartFile image) {
         Product product = productMapper.convertTo(productRequest,image);
@@ -124,6 +126,13 @@ public class ProductServiceImpl implements IProductService {
         ProductResponse result = productMapper.convertToEntity(saved);
         return result;
 
+    }
+
+    @Override
+    public List<ProductDto> getProductsByCategoryId(Long idCategory) {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> result = productMapper.productEntityList2DtoListId(products, idCategory);
+        return result;
     }
 
 }

@@ -104,11 +104,12 @@ public class ProductMapper {
     public ProductDto productEntityBasic2Dto(Product entity) {
 
         ProductDto dto = new ProductDto();
-        dto.setCategoryId(entity.getId());
+        dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
         dto.setPrice(entity.getPrice());
         dto.setCategoryId(entity.getCategory().getId());
+        dto.setCategory(entity.getCategory());
         dto.setImage(entity.getImage());
         return dto;
 
@@ -183,5 +184,15 @@ public class ProductMapper {
         response.setCategory(product.getCategory());
         response.setTimestamp(product.getTimestamp());
         return response;
+    }
+
+    public List<ProductDto> productEntityList2DtoListId(List<Product> products, Long idCategory) {
+        List<ProductDto> dtoList = new ArrayList<>();
+        for(Product p: products){
+            if(p.getCategory().getId() == idCategory){
+                dtoList.add(productEntityBasic2Dto(p));
+            }
+        }
+        return dtoList;
     }
 }

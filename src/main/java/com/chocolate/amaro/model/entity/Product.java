@@ -48,7 +48,7 @@ public class Product {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id", insertable = true, updatable = true)
     private Category category;
-
+    private Long categoryId;
 
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Trolley> trolleyList = new ArrayList<>();
