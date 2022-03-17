@@ -12,4 +12,7 @@ public interface IProductRepository extends JpaRepository<Product, Long>{
 
 
     List<Product> findByName(String name);
+
+
+
 }
