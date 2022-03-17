@@ -37,11 +37,11 @@ the email is a number from 0 to 10 per role. All the users have "tienda1234" as 
 
 
 Information to develop:<br>
-The client wants an api rest to sell their products, they are asking for a login and registration, so that the buyer can 
-select their products and these are saved in the cart once purchased, the buyer is sent an email with the receipt, they can pay 
-in cash and for the paid market, the products must be displayed in 10 elements, there are categories, slides, security with spring security.
-When a customer makes a purchase, a notification should appear advising the admin that a purchase has been made.
-For managing images, AWS can be used to save and consume them.
+The client wants a rest of api to sell his products, he is requesting a login and registration, so that the buyer can
+select your products and these are saved in the cart once purchased, an email is sent to the buyer with the receipt, you can pay
+in cash and by paid market, the products must be paginated by 10 elements, there are categories, slides, security with springboot.
+When a customer makes a purchase, a notification should appear informing the admin that a purchase has been made.
+To manage images, AWS can be used to save and consume them.
 <br>
 For the Front End it would be ideal to use React with bootstrap.
 <br>
