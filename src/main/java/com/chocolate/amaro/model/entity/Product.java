@@ -7,14 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.hateoas.RepresentationModel;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -40,7 +34,7 @@ public class Product {
     private String image;
 
     @Column(nullable = false)
-    private Long price;
+    private Double price;
 
     @CreationTimestamp
     private Timestamp timestamp;
@@ -50,15 +44,9 @@ public class Product {
     private Category category;
     private Long categoryId;
 
-    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
-    private List<Trolley> trolleyList = new ArrayList<>();
-
-    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "user_id")
-    //private User user;
-
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
+
 
 
 

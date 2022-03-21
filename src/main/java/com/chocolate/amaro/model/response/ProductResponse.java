@@ -16,7 +16,7 @@ public class ProductResponse {
     private String name;
     private String description;
     private String image;
-    private Long price;
+    private Double price;
     private Timestamp timestamp;
     private Category category;
 

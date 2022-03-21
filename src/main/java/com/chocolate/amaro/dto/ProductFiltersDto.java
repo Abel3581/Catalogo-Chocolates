@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductFiltersDto {
     private String name;
-    private Long price;
+    private Double price;
     private Long categoryId;
 
 

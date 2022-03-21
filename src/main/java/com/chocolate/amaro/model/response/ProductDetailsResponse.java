@@ -12,7 +12,7 @@ public class ProductDetailsResponse {
     private String name;
     private String description;
     private String image;
-    private Long price;
+    private Double price;
     private CategoryResponse category;
 
 
