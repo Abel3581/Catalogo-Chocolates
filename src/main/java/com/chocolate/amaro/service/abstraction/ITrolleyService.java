@@ -12,4 +12,6 @@ public interface ITrolleyService {
     TrolleyDto addProduct(Long cartId, Long productId);
 
     TrolleyDto getCartById(Long id, User loggerUser);
+
+    void removeProduct(Long cartID, Long productID);
 }

@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TrolleyDto {
 
-
     private Long id;
     private EnumState enumState;
     private Timestamp timestamp;

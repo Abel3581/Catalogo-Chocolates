@@ -1,30 +1,29 @@
 package com.chocolate.amaro.mapper;
 
-import com.chocolate.amaro.dto.ProductsCartDto;
+
 import com.chocolate.amaro.dto.TrolleyDto;
-import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.repository.ITrolleyRepository;
 import com.chocolate.amaro.service.abstraction.IUserService;
 import com.chocolate.amaro.utils.EnumState;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Component
 public class TrolleyMapper {
 
     @Autowired
     private IUserService userService;
+
     @Autowired
     private ITrolleyRepository trolleyRepository;
+
     public Trolley convertTo(TrolleyDto cart) {
+
         Trolley trolley = new Trolley();
         User loggedUser = userService.getInfoUser();
         trolley.setProducts(cart.getProducts());
@@ -35,9 +34,8 @@ public class TrolleyMapper {
         return trolley;
     }
 
-
-
     public TrolleyDto convertToEntityToDto(Trolley entity) {
+
         TrolleyDto trolleyDto = new TrolleyDto();
         trolleyDto.setId(entity.getId());
         trolleyDto.setProducts(entity.getProducts());

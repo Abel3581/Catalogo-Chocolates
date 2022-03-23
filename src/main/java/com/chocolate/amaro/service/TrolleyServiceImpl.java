@@ -70,6 +70,16 @@ public class TrolleyServiceImpl implements ITrolleyService {
 
     }
 
+    @Override
+    public void removeProduct(Long cartID, Long productID) {
+        Trolley cart = getTrolley(cartID);
+        Product product = productRepository.findById(productID).get();
+        if(cart.getProducts().size() <= 0)
+            throw new RuntimeException("Product is Empty");
+        cart.removeProduct(product);
+        trolleyRepository.save(cart);
+    }
+
     private Trolley getTrolley(Long id){
         Optional<Trolley> trolleyOptional = trolleyRepository.findById(id);
         if(trolleyOptional.isEmpty() || trolleyOptional.get().isSoftDelete()){
