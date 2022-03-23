@@ -54,7 +54,11 @@ public class Trolley {
         amount += product.getPrice();
     }
 
-
+    public boolean removeProduct(Product product) {
+        quantity -= 1;
+        amount -= product.getPrice();
+        return (this.products.remove(product));
+    }
 
 
 }
