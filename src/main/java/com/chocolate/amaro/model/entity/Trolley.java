@@ -41,8 +41,17 @@ public class Trolley {
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
 
+    @Column(name = "amount", nullable = false, updatable = true)
+    private int amount = 0;
+
+    @Column(name = "quantity", nullable = false, updatable = true)
+    private Integer quantity = 0;
+
+
     public void addProduct(Product product) {
         this.products.add(product);
+        quantity += 1;
+        amount += product.getPrice();
     }
 
 

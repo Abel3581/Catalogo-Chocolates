@@ -44,6 +44,8 @@ public class TrolleyMapper {
         trolleyDto.setTimestamp(entity.getTimestamp());
         trolleyDto.setEnumState(entity.getEnumState());
         trolleyDto.setNameUser(entity.getBuyer().getUsername());
+        trolleyDto.setAmount(entity.getAmount());
+        trolleyDto.setQuantity(entity.getQuantity());
 
         return trolleyDto;
     }

@@ -26,6 +26,8 @@ public class TrolleyDto {
     private boolean softDelete;
     private User user;
     private String nameUser;
+    private int amount;
+    private Integer quantity;
     private List<Product> products = new ArrayList<>();
 
 }
