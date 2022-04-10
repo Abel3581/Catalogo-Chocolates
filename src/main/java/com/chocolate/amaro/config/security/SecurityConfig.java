@@ -74,6 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/trolley/{id}").permitAll()
                 .antMatchers(HttpMethod.PUT,"/trolley/carts/{cartId}/products/{productId}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/trolley/carts/{cartID}/products/{productID}").permitAll()
+                .antMatchers(HttpMethod.GET,"/trolley/toBuy/cart/{id}").permitAll()
+
                 .anyRequest()
                 .authenticated()
                 .and()

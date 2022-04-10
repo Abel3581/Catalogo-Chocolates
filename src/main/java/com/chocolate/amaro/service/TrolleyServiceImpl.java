@@ -33,12 +33,15 @@ public class TrolleyServiceImpl implements ITrolleyService {
     public TrolleyDto addCart(TrolleyDto cart) {
         User loggedUser = userService.getInfoUser();
         Trolley trolley = trolleyMapper.convertTo(cart);
+
         if(controlUniqueCartOpen(loggedUser))
             throw new RuntimeException("Error para agregar otro carrito primero cerrar el que se esta usando");
+
         Trolley saved = trolleyRepository.save(trolley);
         TrolleyDto result = trolleyMapper.convertToEntityToDto(saved);
         return result;
     }
+
     private boolean controlUniqueCartOpen(User user){
         user = userService.getInfoUser();
         List<Trolley> trolley = user.getCart();
@@ -50,6 +53,7 @@ public class TrolleyServiceImpl implements ITrolleyService {
         }
         return (trolley.size() > 0)?true:false;
     }
+
     @Override
     public TrolleyDto addProduct(Long cartId, Long productId) {
         Trolley entity = trolleyRepository.findById(cartId).get();
@@ -78,6 +82,20 @@ public class TrolleyServiceImpl implements ITrolleyService {
             throw new RuntimeException("Product is Empty");
         cart.removeProduct(product);
         trolleyRepository.save(cart);
+    }
+
+    @Override
+    public TrolleyDto BuyProductsById(Long id, User user) {
+        Trolley trolley = getTrolley(id);
+        if(trolley.getBuyer().getId() != user.getId()){
+            throw new RuntimeException("Cart is not exist");
+        }
+        Trolley saved = trolleyRepository.getById(id);
+        saved.setEnumState(EnumState.CLOSED);
+        trolleyRepository.save(saved);
+        TrolleyDto response = trolleyMapper.convertToEntity(saved);
+
+        return response;
     }
 
     private Trolley getTrolley(Long id){
