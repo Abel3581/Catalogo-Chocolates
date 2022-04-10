@@ -71,8 +71,7 @@ public class ProductServiceImpl implements IProductService {
         }
         productMapper.productEntityRefreshValues(entity.get(), productDto);
         Product entitySaved = productRepository.save(entity.get());
-        ProductDto result = productMapper.productEntity2Dto(entitySaved);
-        return result;
+        return productMapper.productEntity2Dto(entitySaved);
     }
 
     @Override

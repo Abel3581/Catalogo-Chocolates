@@ -2,6 +2,7 @@ package com.chocolate.amaro.mapper;
 
 
 import com.chocolate.amaro.dto.TrolleyDto;
+import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.repository.ITrolleyRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -45,6 +48,24 @@ public class TrolleyMapper {
         trolleyDto.setAmount(entity.getAmount());
         trolleyDto.setQuantity(entity.getQuantity());
 
+        return trolleyDto;
+    }
+
+
+    public TrolleyDto convertToEntity(Trolley entity) {
+        List<Product> productList = entity.getProducts();
+        List<Product> products = new ArrayList<>();
+        TrolleyDto trolleyDto = new TrolleyDto();
+        trolleyDto.setId(entity.getId());
+        trolleyDto.setTimestamp(entity.getTimestamp());
+        trolleyDto.setEnumState(EnumState.CLOSED);
+        trolleyDto.setNameUser(entity.getBuyer().getUsername());
+        trolleyDto.setAmount(entity.getAmount());
+        trolleyDto.setQuantity(entity.getQuantity());
+        for(Product p: productList){
+            products.add(p);
+        }
+        trolleyDto.setProducts(products);
         return trolleyDto;
     }
 

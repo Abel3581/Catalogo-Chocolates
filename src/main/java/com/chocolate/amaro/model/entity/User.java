@@ -55,6 +55,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "buyer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Trolley> cart = new ArrayList<Trolley>();
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "user")
+    private Invoice invoice;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getRoles().stream()

@@ -44,15 +44,14 @@ public class Product {
     private Category category;
     private Long categoryId;
 
+    @JoinColumn(name = "invoice_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Invoice invoiceId;
+
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
 
 
-
-
-
-
-
-
-
+    public Product(Long id, String name, String description, String image, Double price, Long categoryId, Category category) {
+    }
 }

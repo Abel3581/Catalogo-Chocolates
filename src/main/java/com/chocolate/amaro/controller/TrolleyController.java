@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
 @RequestMapping("/trolley")
 public class TrolleyController {
@@ -46,5 +43,13 @@ public class TrolleyController {
         service.removeProduct(cartID, productID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/toBuy/cart/{id}")
+    public ResponseEntity<TrolleyDto> toBuyCartById(@PathVariable Long id){
+        User user = userService.getInfoUser();
+        TrolleyDto result = service.BuyProductsById(id, user);
+        return ResponseEntity.ok().body(result);
+    }
+
 
 }
