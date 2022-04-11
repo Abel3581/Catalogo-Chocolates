@@ -2,6 +2,8 @@ package com.chocolate.amaro.controller;
 
 import com.chocolate.amaro.dto.UserDtoRequest;
 import com.chocolate.amaro.dto.UserDtoResponse;
+import com.chocolate.amaro.model.request.InvoiceRequest;
+import com.chocolate.amaro.model.response.InvoiceResponse;
 import com.chocolate.amaro.service.abstraction.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,10 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
-    //@PostMapping("/{cartId}/{userId}")
+    @PostMapping("/{cartId}")
+    public ResponseEntity<InvoiceResponse> purchase(@PathVariable Long cartId){
+        InvoiceResponse response = userService.purchase(cartId);
+        return ResponseEntity.ok().body(response);
+    }
 
 }

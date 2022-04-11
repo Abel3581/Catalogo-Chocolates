@@ -1,6 +1,7 @@
 package com.chocolate.amaro.model.entity;
 
 import com.chocolate.amaro.utils.EnumState;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,10 +31,12 @@ public class Trolley {
     private Timestamp timestamp;
 
     //REFERENCIA AL DUEÑO DEL CARRITO
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", insertable = true)
     private User buyer;
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "product_trolley", joinColumns = @JoinColumn(name = "trolley_id"),
             inverseJoinColumns = @JoinColumn(name = "products_id"))

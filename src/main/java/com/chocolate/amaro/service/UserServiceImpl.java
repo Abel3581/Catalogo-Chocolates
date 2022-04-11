@@ -7,19 +7,24 @@ import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.common.JwtUtil;
 import com.chocolate.amaro.dto.UserDtoRequest;
 import com.chocolate.amaro.dto.UserDtoResponse;
+import com.chocolate.amaro.mapper.InvoiceMapper;
 import com.chocolate.amaro.mapper.UserMapper;
+import com.chocolate.amaro.model.entity.Invoice;
 import com.chocolate.amaro.model.entity.Role;
+import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.model.request.InvoiceRequest;
 import com.chocolate.amaro.model.request.UserAuthenticationRequest;
 import com.chocolate.amaro.model.request.UserRegisterRequest;
+import com.chocolate.amaro.model.response.InvoiceResponse;
 import com.chocolate.amaro.model.response.UserAuthenticatedResponse;
 import com.chocolate.amaro.model.response.UserRegisterResponse;
+import com.chocolate.amaro.repository.IInvoiceRepository;
+import com.chocolate.amaro.repository.ITrolleyRepository;
 import com.chocolate.amaro.repository.IUserRepository;
 import com.chocolate.amaro.config.security.ApplicationRole;
-import com.chocolate.amaro.service.abstraction.IAuthenticationService;
-import com.chocolate.amaro.service.abstraction.IRegisterUserService;
-import com.chocolate.amaro.service.abstraction.IRoleService;
-import com.chocolate.amaro.service.abstraction.IUserService;
+import com.chocolate.amaro.service.abstraction.*;
+import com.chocolate.amaro.utils.EnumState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,6 +47,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
+
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -59,6 +65,14 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ITrolleyService trolleyService;
+
+    @Autowired
+    private InvoiceMapper invoiceMapper;
+    @Autowired
+    private IInvoiceRepository invoiceRepository;
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest request)throws UserAlreadyExistException {
@@ -141,6 +155,15 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
         List<User> users = userRepository.findAll();
         List<UserDtoResponse> userResults = userMapper.userEntityList2DTOList(users, true);
         return userResults;
+    }
+
+    // TODO version de prueba se puede mejorar
+    @Override
+    public InvoiceResponse purchase(Long cartId) {
+        Invoice invoice = userMapper.invoiceToRequest(cartId);
+        Invoice saved = invoiceRepository.save(invoice);
+        InvoiceResponse response = invoiceMapper.invoiceEntityTo(saved);
+        return response;
     }
 
 

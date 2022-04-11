@@ -1,5 +1,6 @@
 package com.chocolate.amaro.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,14 +40,11 @@ public class Product {
     @CreationTimestamp
     private Timestamp timestamp;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "categories_id", insertable = true, updatable = true)
     private Category category;
     private Long categoryId;
-
-    @JoinColumn(name = "invoice_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Invoice invoiceId;
 
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;

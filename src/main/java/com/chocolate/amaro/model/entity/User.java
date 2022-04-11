@@ -1,5 +1,6 @@
 package com.chocolate.amaro.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,6 +56,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "buyer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Trolley> cart = new ArrayList<Trolley>();
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToOne(mappedBy = "user")
     private Invoice invoice;
