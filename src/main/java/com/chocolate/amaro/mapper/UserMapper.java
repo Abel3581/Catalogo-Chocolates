@@ -3,11 +3,17 @@ package com.chocolate.amaro.mapper;
 import com.chocolate.amaro.dto.RoleDto;
 import com.chocolate.amaro.dto.UserDtoRequest;
 import com.chocolate.amaro.dto.UserDtoResponse;
+import com.chocolate.amaro.model.entity.Invoice;
+import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.model.request.InvoiceRequest;
+import com.chocolate.amaro.repository.ITrolleyRepository;
+import com.chocolate.amaro.utils.EnumState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +24,8 @@ public class UserMapper {
     private RoleMapper roleMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ITrolleyRepository trolleyRepository;
 
     public void userRefreshValues(User user, UserDtoRequest request) {
         user.setFirstName(request.getFirstName());
@@ -66,6 +74,23 @@ public class UserMapper {
         return dtoResponses;
     }
 
+    public Invoice invoiceToRequest(Long cartId) {
+        Trolley trolley = trolleyRepository.getById(cartId);
+        if(trolley.getEnumState().equals(EnumState.CLOSED)){
+            throw new RuntimeException("No se puede comprar el carrito esta cerrado.");
+        }else {
+            Invoice invoice = new Invoice();
+            invoice.setUser(trolley.getBuyer());
+            invoice.setTotalPrice(trolley.getAmount());
+            invoice.setQuantity(trolley.getQuantity());
+            invoice.setNameUser(invoice.getUser().getFirstName());
+            invoice.setUsername(invoice.getUser().getUsername());
+            invoice.setLastname(invoice.getUser().getLastName());
+            invoice.setTimestamp(new Timestamp(System.currentTimeMillis()));
+            trolley.setEnumState(EnumState.CLOSED);
+            return invoice;
+        }
     }
+}
 
 

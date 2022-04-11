@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,8 +16,9 @@ import java.util.List;
 public class InvoiceResponse {
 
     private Long id;
-    private int amount = 0;
+    private int totalPrice = 0;
     private Integer quantity = 0;
     List<Product> productList;
-    private User user;
+    private String nameUser, username, lastname;
+    private Timestamp timestamp;
 }

@@ -2,12 +2,14 @@ package com.chocolate.amaro.model.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.List;
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Getter @Setter
@@ -16,15 +18,17 @@ public class Invoice {
 
     @Id
     @Column(name = "invoice_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int amount = 0;
+    private int totalPrice = 0;
     private Integer quantity = 0;
-
-    @OneToMany(mappedBy = "invoiceId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    List<Product> productList;
+    private String nameUser, username, lastname;
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     //REFERENCIA AL DUEÑO DEL CARRITO
+    @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "user_id", insertable = true)
+    @JoinColumn(name = "user_id")
     private User user;
 }
