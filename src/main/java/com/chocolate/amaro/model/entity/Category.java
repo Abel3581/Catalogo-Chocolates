@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE categories_id=?")
 @Where(clause = "soft_delete = false")
 @Entity
@@ -40,4 +41,6 @@ public class Category {
 
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
+
+
 }
