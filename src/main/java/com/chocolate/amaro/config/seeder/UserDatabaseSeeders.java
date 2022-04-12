@@ -1,8 +1,10 @@
 package com.chocolate.amaro.config.seeder;
 
 import com.chocolate.amaro.config.security.ApplicationRole;
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Role;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.repository.ICategoryRepository;
 import com.chocolate.amaro.repository.IRoleRepository;
 import com.chocolate.amaro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +24,21 @@ public class UserDatabaseSeeders {
     private static final String HOST_EMAIL = "@test.com";
     private static final String DEFAULT_FIRST_NAME = "Test";
 
+    private final Category[] categories = {
+           new Category(1L,"Marroc","Crema de mani", "www.imagen.jpg",new Timestamp(System.currentTimeMillis()),false),
+            new Category(2L,"Blanco","Chocolates blancos", "www.imagen.jpg",new Timestamp(System.currentTimeMillis()),false),
+            new Category(3L,"Negro","Chocolate negro", "www.imagen.jpg",new Timestamp(System.currentTimeMillis()),false),
+            new Category(4L,"Rellenos","Chocolates rellenos", "www.imagen.jpg",new Timestamp(System.currentTimeMillis()),false),
+    };
+
     @Autowired
     private IUserRepository userRepository;
     @Autowired
     private IRoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ICategoryRepository categoryRepository;
 
     @EventListener
     public void seed(ContextRefreshedEvent event) {
@@ -39,7 +51,19 @@ public class UserDatabaseSeeders {
         if (users.isEmpty()) {
             createUsers();
         }
+
+        List<Category> categories = categoryRepository.findAll();
+        if(categories.isEmpty()){
+            crateCategories();
+        }
     }
+
+    private void crateCategories() {
+       for(Category c: categories){
+           categoryRepository.save(c);
+       }
+    }
+
 
     private void createUsers(ApplicationRole applicationRole) {
         for (int index = 0; index < 10; index++) {
