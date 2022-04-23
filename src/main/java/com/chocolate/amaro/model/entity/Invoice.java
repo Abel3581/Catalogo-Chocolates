@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter @Setter
@@ -20,8 +21,8 @@ public class Invoice {
     @Column(name = "invoice_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int totalPrice = 0;
-    private Integer quantity = 0;
+    private int totalPrice;
+    private Integer quantity;
     private String nameUser, username, lastname;
     @CreationTimestamp
     private Timestamp timestamp;
@@ -31,4 +32,5 @@ public class Invoice {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 }

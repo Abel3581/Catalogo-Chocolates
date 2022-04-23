@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -44,17 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf()
-                .disable()
+        http.csrf().disable()
                 .cors()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/product").permitAll()
                 .antMatchers(HttpMethod.GET,"/product/{id}").permitAll()
                 .antMatchers(HttpMethod.POST,"/category").permitAll()
                 .antMatchers(HttpMethod.GET,"/category/all").permitAll()
@@ -76,7 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/trolley/carts/{cartID}/products/{productID}").permitAll()
                 .antMatchers(HttpMethod.GET,"/trolley/toBuy/cart/{id}").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/{cartId}").permitAll()
-
                 .anyRequest()
                 .authenticated()
                 .and()

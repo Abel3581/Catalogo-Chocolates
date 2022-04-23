@@ -11,6 +11,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class ProductController {
 
     //save a product and its image. Save the image to drive c:Images/resources
     //This type of saving can be improved by eg: aws or another cloud service
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
     public ResponseEntity<ProductResponse> addProduct(@Valid @ModelAttribute ProductRequest productRequest, @RequestParam("file")
                                                            MultipartFile image) throws FieldInvalidException{

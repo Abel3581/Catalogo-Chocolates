@@ -46,6 +46,7 @@ public class Product {
     private Category category;
     private Long categoryId;
 
+
     @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
 

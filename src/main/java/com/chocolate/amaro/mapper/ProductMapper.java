@@ -8,6 +8,7 @@ import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductResponse;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
+import com.chocolate.amaro.service.abstraction.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,8 @@ public class ProductMapper {
 
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IProductService productService;
 
     public void productEntityRefreshValues(Product product, ProductDto productDto) {
         product.setName(productDto.getName());

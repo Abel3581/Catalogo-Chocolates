@@ -21,6 +21,7 @@ public class ProductSpecification {
             if(StringUtils.hasLength(filtersDto.getName())){
                 predicates.add(criteriaBuilder.equal(root.get("name"), filtersDto.getName()));
             }
+
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

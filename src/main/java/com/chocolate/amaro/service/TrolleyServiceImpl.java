@@ -2,9 +2,11 @@ package com.chocolate.amaro.service;
 
 import com.chocolate.amaro.dto.TrolleyDto;
 import com.chocolate.amaro.mapper.TrolleyMapper;
+import com.chocolate.amaro.model.entity.Invoice;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
+import com.chocolate.amaro.repository.IInvoiceRepository;
 import com.chocolate.amaro.repository.IProductRepository;
 import com.chocolate.amaro.repository.ITrolleyRepository;
 import com.chocolate.amaro.service.abstraction.ITrolleyService;
@@ -27,6 +29,8 @@ public class TrolleyServiceImpl implements ITrolleyService {
     private IProductRepository productRepository;
     @Autowired
     private IUserService userService;
+  //  @Autowired
+  //  private IInvoiceRepository invoiceRepository;
 
 
     @Override
@@ -51,7 +55,7 @@ public class TrolleyServiceImpl implements ITrolleyService {
         }else{
             return false;
         }
-        return (trolley.size() > 0)?true:false;
+        return trolley.size() > 0;
     }
 
     @Override
@@ -61,6 +65,7 @@ public class TrolleyServiceImpl implements ITrolleyService {
         entity.addProduct(product);
         trolleyRepository.save(entity);
         TrolleyDto result = trolleyMapper.convertToEntityToDto(entity);
+        result.setCategory(product.getCategory());
         return result;
     }
 
@@ -94,7 +99,14 @@ public class TrolleyServiceImpl implements ITrolleyService {
         saved.setEnumState(EnumState.CLOSED);
         trolleyRepository.save(saved);
         TrolleyDto response = trolleyMapper.convertToEntity(saved);
-
+     /*   Invoice invoice = new Invoice();
+        invoice.setUserId(response.getUser().getId());
+        invoice.setTimestamp(response.getTimestamp());
+        invoice.setTotalPrice(response.getAmount());
+        invoice.setUsername(response.getNameUser());
+        invoice.setLastname(response.getUser().getLastName());
+        invoice.setUsername(response.getUser().getUsername());
+        invoiceRepository.save(invoice);*/
         return response;
     }
 
