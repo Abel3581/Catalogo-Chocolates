@@ -1,5 +1,6 @@
 package com.chocolate.amaro.dto;
 
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.utils.EnumState;
@@ -28,5 +29,6 @@ public class TrolleyDto {
     private int amount;
     private Integer quantity;
     private List<Product> products = new ArrayList<>();
+    private Category category;
 
 }

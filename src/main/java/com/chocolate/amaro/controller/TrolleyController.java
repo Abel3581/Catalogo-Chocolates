@@ -44,6 +44,7 @@ public class TrolleyController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // TODO version de prueba
     @GetMapping("/toBuy/cart/{id}")
     public ResponseEntity<TrolleyDto> toBuyCartById(@PathVariable Long id){
         User user = userService.getInfoUser();

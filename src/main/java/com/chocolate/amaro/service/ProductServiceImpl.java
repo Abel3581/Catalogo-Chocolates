@@ -7,6 +7,7 @@ import com.chocolate.amaro.common.EntityUtil;
 import com.chocolate.amaro.dto.PageDto;
 import com.chocolate.amaro.dto.ProductDto;
 import com.chocolate.amaro.mapper.ProductMapper;
+import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.request.ProductRequest;
 import com.chocolate.amaro.model.response.ProductDetailsResponse;
@@ -133,6 +134,10 @@ public class ProductServiceImpl implements IProductService {
         List<ProductDto> result = productMapper.productEntityList2DtoListId(products, idCategory);
         return result;
     }
+
+
+
+
 
 }
 

@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
     public InvoiceResponse purchase(Long cartId) {
         Invoice invoice = userMapper.invoiceToRequest(cartId);
         Invoice saved = invoiceRepository.save(invoice);
-        InvoiceResponse response = invoiceMapper.invoiceEntityTo(saved);
+        InvoiceResponse response = invoiceMapper.invoiceEntityTo(saved, cartId);
         return response;
     }
 

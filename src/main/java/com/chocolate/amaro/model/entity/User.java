@@ -58,7 +58,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @JsonManagedReference
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private Invoice invoice;
 
     @Override

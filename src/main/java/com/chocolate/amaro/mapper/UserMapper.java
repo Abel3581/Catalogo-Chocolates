@@ -4,6 +4,7 @@ import com.chocolate.amaro.dto.RoleDto;
 import com.chocolate.amaro.dto.UserDtoRequest;
 import com.chocolate.amaro.dto.UserDtoResponse;
 import com.chocolate.amaro.model.entity.Invoice;
+import com.chocolate.amaro.model.entity.Product;
 import com.chocolate.amaro.model.entity.Trolley;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.model.request.InvoiceRequest;

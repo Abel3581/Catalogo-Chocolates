@@ -4,11 +4,13 @@ import com.chocolate.amaro.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -76,6 +78,18 @@ public class JwtUtil {
 
     private String getToken(String authorizationHeader) {
         return authorizationHeader.replace(BEARER_PART, EMPTY);
+    }
+
+
+    public String createToken(Authentication authentication) {
+        UserDetails userDetails=(UserDetails) authentication.getPrincipal();
+        List<String> roles=userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes(Charset.forName("UTF-8"))).compact();
     }
 
 }

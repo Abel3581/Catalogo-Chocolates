@@ -16,9 +16,9 @@ import java.util.List;
 public class InvoiceResponse {
 
     private Long id;
+    private String nameUser, username, lastname;
     private int totalPrice = 0;
     private Integer quantity = 0;
-    List<Product> productList;
-    private String nameUser, username, lastname;
     private Timestamp timestamp;
+    List<Product> productList;
 }
