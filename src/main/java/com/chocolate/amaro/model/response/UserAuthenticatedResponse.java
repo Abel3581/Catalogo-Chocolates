@@ -1,10 +1,11 @@
 package com.chocolate.amaro.model.response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @Builder
 public class UserAuthenticatedResponse {
 
     private String token;

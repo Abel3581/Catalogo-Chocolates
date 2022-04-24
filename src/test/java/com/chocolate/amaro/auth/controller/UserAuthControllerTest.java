@@ -1,6 +1,7 @@
 package com.chocolate.amaro.auth.controller;
 
 import com.chocolate.amaro.model.request.UserRegisterRequest;
+import com.chocolate.amaro.service.UserServiceImpl;
 import com.chocolate.amaro.utils.MocksAuth;
 
 import com.chocolate.amaro.utils.TestUtil;
@@ -30,6 +31,8 @@ public class UserAuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private UserServiceImpl userService;
 
     @BeforeEach
     void setUp() {
@@ -52,5 +55,20 @@ public class UserAuthControllerTest {
       result.andExpect(jsonPath("$.email").value(request.getEmail()));
       result.andExpect(jsonPath("$.cellphone").value(request.getCellphone()));
       result.andExpect(jsonPath("$.token").isNotEmpty());
+  }
+
+  @Test
+    void login() throws Exception{
+        var usuario = userService.register(MocksAuth.buildRegisterRequest());
+        var request = MocksAuth.buildAuthRequest();
+
+        //When
+        var result = mockMvc.perform(post(PATH + "/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+        //Then
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$.email").value(usuario.getEmail()));
+        result.andExpect(jsonPath("$.token").isNotEmpty());
   }
 }
