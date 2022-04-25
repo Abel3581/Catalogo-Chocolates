@@ -13,7 +13,7 @@ public class RoleServiceImpl implements IRoleService {
     private IRoleRepository roleRepository;
 
     @Override
-    public Role finBy(String name) {
+    public Role findBy(String name) {
 
         return roleRepository.findByName(name);
     }

@@ -92,4 +92,14 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return !this.softDelete;
     }
+
+    public User(Long id, String firstName, String lastName, String email, String password, String cellphone, List<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.cellphone = cellphone;
+        this.roles = roles;
+    }
 }
