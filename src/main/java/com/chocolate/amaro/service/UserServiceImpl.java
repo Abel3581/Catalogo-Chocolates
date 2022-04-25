@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
         User user = DtoUtil.convertTo(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.finBy(ApplicationRole.USER.getFullRoleName()));
+        roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
         user.setRoles(roles);
         User userCreate = userRepository.save(user);
         UserRegisterResponse userRegisterResponse = EntityUtil.concertTo(userCreate);

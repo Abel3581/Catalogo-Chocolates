@@ -1,11 +1,14 @@
 package com.chocolate.amaro.model.request;
 
+import com.chocolate.amaro.model.entity.Role;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-@Builder
+import java.util.List;
+
+//@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,5 +32,7 @@ public class UserRegisterRequest {
 
     @NotBlank (message = "El celular no puede estar vacía")
     private String cellphone;
+
+    //private Role role;
 
 }
