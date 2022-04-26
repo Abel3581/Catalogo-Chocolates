@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
     @Autowired
     private IInvoiceRepository invoiceRepository;
 
+
     @Override
     public UserRegisterResponse register(UserRegisterRequest request)throws UserAlreadyExistException {
         if(userRepository.findByEmail(request.getEmail()) != null){
@@ -131,6 +132,14 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
         return userRepository.findByEmail(principal.toString());
 
     }
+    @Override
+    public UserRegisterResponse infoUserLogged() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userLogged = userRepository.findByEmail(principal.toString());
+        UserRegisterResponse response = EntityUtil.concertTo(userLogged);
+        return response;
+    }
+
 
     @Override
     public UserDtoResponse update(Long id, UserDtoRequest request) {
@@ -165,6 +174,7 @@ public class UserServiceImpl implements UserDetailsService, IRegisterUserService
         InvoiceResponse response = invoiceMapper.invoiceEntityTo(saved, cartId);
         return response;
     }
+
 
 
 }

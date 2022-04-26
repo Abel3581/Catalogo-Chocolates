@@ -6,6 +6,7 @@ import com.chocolate.amaro.dto.UserDtoResponse;
 import com.chocolate.amaro.model.entity.User;
 import com.chocolate.amaro.model.request.InvoiceRequest;
 import com.chocolate.amaro.model.response.InvoiceResponse;
+import com.chocolate.amaro.model.response.UserRegisterResponse;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -21,4 +22,6 @@ public interface IUserService {
     List<UserDtoResponse> getAllUsers();
 
     InvoiceResponse purchase(Long cartId);
+
+    UserRegisterResponse infoUserLogged();
 }

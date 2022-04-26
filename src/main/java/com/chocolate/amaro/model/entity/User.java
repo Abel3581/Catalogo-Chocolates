@@ -93,7 +93,7 @@ public class User implements UserDetails {
         return !this.softDelete;
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, String cellphone, List<Role> roles) {
+    public User(Long id, String firstName, String lastName, String email, String password, String cellphone, List<Role> roles,List<Trolley> cart) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,5 +101,6 @@ public class User implements UserDetails {
         this.password = password;
         this.cellphone = cellphone;
         this.roles = roles;
+        this.cart = cart;
     }
 }
