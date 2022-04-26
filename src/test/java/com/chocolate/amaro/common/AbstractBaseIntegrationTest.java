@@ -11,8 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.assertj.core.util.Lists;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 
 public class AbstractBaseIntegrationTest {
 
@@ -54,7 +52,8 @@ public class AbstractBaseIntegrationTest {
                 "johnny@gmail.com",
                 "123456789",
                 "teléfono",
-                Lists.list(stubRole(role)));
+                Lists.list(stubRole(role)),
+                null);
     }
 
 }

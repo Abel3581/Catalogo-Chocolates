@@ -42,9 +42,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/me")
+    @GetMapping("/mee")
     public ResponseEntity<User> userLogged() throws NotFoundExceptions {
         return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserRegisterResponse> infoUserLogged() throws NotFoundExceptions{
+        return new ResponseEntity<>(userService.infoUserLogged(), HttpStatus.OK);
     }
 
 }

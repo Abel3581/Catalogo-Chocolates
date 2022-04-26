@@ -29,7 +29,7 @@ public class EntityUtil {
         userRegisterResponse.setId(user.getId());
         userRegisterResponse.setEmail(user.getEmail());
         userRegisterResponse.setCellphone(user.getCellphone());
-        userRegisterResponse.setPhoto(userRegisterResponse.getPhoto());
+        userRegisterResponse.setPhoto(user.getImage());
 
         return userRegisterResponse;
 
