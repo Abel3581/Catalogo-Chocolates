@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class CategoryRequest {
 
-    @NotNull(message = "El nombre no puede estar vacio")
+    @NotBlank(message = "El nombre no puede estar vac-io")
     @Pattern(regexp = "^([a-zA-Z]+)$", message = "Este campo no debe contener números")
     private String name;
 

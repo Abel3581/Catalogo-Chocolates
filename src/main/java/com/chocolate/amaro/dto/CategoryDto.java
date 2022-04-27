@@ -13,7 +13,7 @@ public class CategoryDto {
 
     private Long id;
 
-    @NotNull(message = "The name cannot be empty")
+    @NotNull(message = "The name attribute must not be empty.")
     @Pattern(regexp = "^([a-zA-Z]+)$", message = "This field must not contain numbers")
     private String name;
 

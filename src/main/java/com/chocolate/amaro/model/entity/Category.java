@@ -1,9 +1,6 @@
 package com.chocolate.amaro.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -15,7 +12,6 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE categories_id=?")
 @Where(clause = "soft_delete = false")
 @Entity

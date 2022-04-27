@@ -1,4 +1,4 @@
-package com.chocolate.amaro.user;
+package com.chocolate.amaro.controller.user;
 
 import com.chocolate.amaro.common.AbstractBaseIntegrationTest;
 import com.chocolate.amaro.common.JwtUtil;
