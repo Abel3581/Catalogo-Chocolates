@@ -3,8 +3,6 @@ package com.chocolate.amaro.controller.category;
 import com.chocolate.amaro.config.security.ApplicationRole;
 import com.chocolate.amaro.dto.CategoryDto;
 import com.chocolate.amaro.model.entity.Category;
-import com.chocolate.amaro.model.request.CategoryRequest;
-import com.chocolate.amaro.model.response.CategoryResponse;
 import com.chocolate.amaro.model.response.ErrorResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
