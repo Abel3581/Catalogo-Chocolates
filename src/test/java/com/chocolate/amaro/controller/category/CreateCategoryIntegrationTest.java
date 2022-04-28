@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
@@ -43,9 +44,9 @@ public class CreateCategoryIntegrationTest extends AbstractBaseCategoryIntegrati
         ResponseEntity<ErrorResponse> response = restTemplate.exchange(createURLWithPort(PATH),
                 HttpMethod.POST, entity, ErrorResponse.class);
 
-        String emptyName = "The name attribute must not be empty.";
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
        // assertTrue(response.getBody().getMessage().contains(emptyName));
     }
 
