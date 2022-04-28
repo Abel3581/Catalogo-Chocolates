@@ -6,8 +6,10 @@ import com.chocolate.amaro.model.entity.Category;
 import com.chocolate.amaro.repository.ICategoryRepository;
 import com.chocolate.amaro.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class CategoryServiceImpl implements ICategoryService {
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
-
+    private static final String CATEGORY_NAME_IS_EMPTY = "The name cannot be empty or null.";
     @Autowired
     private ICategoryRepository categoryRepository;
 
@@ -33,11 +35,10 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto){
+    public CategoryDto save(CategoryDto categoryDto) {
         Category entity = categoryMapper.categoryDto2Entity(categoryDto);
         Category entitySaved = categoryRepository.save(entity);
-        CategoryDto result = categoryMapper.categoryEntity2Dto(entitySaved);
-        return result;
+        return categoryMapper.categoryEntity2Dto(entitySaved);
     }
 
     @Override
