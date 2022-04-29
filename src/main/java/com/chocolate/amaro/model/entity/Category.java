@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE categories_id=?")
