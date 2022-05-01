@@ -1,7 +1,7 @@
 # Catalogo-Chocolates
-Back-End con java, Spring boot para una tienda de ventas de chocolates.<br>
-Version: En desarrollo.<br>
-PROXIMATE UML...
+## Back-End with java, Spring boot for a chocolate shop.<br>
+### Version: Under development.<br>
+#### NEXT UML...
 
 
 ### PROJECT SETUP
