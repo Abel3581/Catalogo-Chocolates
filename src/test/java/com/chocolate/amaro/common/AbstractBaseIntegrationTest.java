@@ -11,9 +11,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.List;
+
 
 public class AbstractBaseIntegrationTest {
     protected static final long USER_ID = 1L;
@@ -34,7 +32,7 @@ public class AbstractBaseIntegrationTest {
     }
 
     protected void setAuthorizationHeaderBasedOn(String role) {
-        String jwt = SecurityTestConfig.createToken("johnny@gmail.com", role);
+        String jwt = SecurityTestConfig.createToken("email@gmail.com", role);
         headers.set("Authorization", jwt);
     }
 
